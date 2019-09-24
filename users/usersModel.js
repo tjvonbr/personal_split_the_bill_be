@@ -11,7 +11,8 @@ module.exports = {
     getById,
     insert,
     update,
-    remove
+    remove,
+    getMealById
 }
 
 function get() {
@@ -42,8 +43,18 @@ function update(id, changes) {
       .update(changes)
   }
   
-  function remove(id) {
+function remove(id) {
     return db('users')
-      .where('id', id)
-      .del();
-  }
+        .where('id', id)
+        .del();
+}
+
+function getMealById(id) {
+    return db('users')
+        .join('user_meals', 'users.id', 'user_meals.user_id')
+        // .select('user_meals.meal_id')
+        .join('meals', 'meals.id', "user_meals.meal_id")
+        .where('users.id', id)
+        .select('meals.*')
+        // .where('users.id', id)
+}

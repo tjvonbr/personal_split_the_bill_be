@@ -60,4 +60,18 @@ router.get('/',  (req, res) => {
     .catch(err => res.send(err))
 })
 
+router.get('/:id',  (req, res) => {
+  const { id } = req.params
+  db.getById(id)
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(err => res.send(err))
+})
+
+router.get('/:id/meals',  (req, res) => {
+  const { id } = req.params
+  db.getMealById(id)
+    .then(meals => {res.status(200).json(meals)})
+})
 module.exports = router
