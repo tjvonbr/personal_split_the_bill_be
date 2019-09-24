@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
     if(!id) {
         res.status(400).json({ message: 'Invalid Id or Id required'})
     } else {
-    mealsDb.getById(id)
+    mealsDb.getMealById(id)
         .then( meals => {
             res.status(200).json(meals)
         })

@@ -71,15 +71,26 @@ router.get('/:id', auth, (req, res) => {
     .catch(err => res.send(err))
 })
 
-router.get('/:id/meals', auth, (req, res) => {
+router.get('/:id/meals', (req, res) => {
+  const { id } = req.params
+  db.getMeal(id)
+    .then(meals => {res.status(200).json(meals)})
+})
+
+router.get('/:id/meals/:id', (req, res) => {
   const { id } = req.params
   db.getMealById(id)
     .then(meals => {res.status(200).json(meals)})
 })
 
-router.delete('/:id/meals', auth, (req, res) => {
+router.delete('/:id/meals/:id',  (req, res) => {
   const { id } = req.params
   db.getMealById(id)
     .then(meals => {res.status(200).json(meals)})
+      db.removeMeal(id)
+        .then(meals => {
+          res.status(200).json(meals)
+        })
+
 })
 module.exports = router
