@@ -15,7 +15,8 @@ exports.seed = function(knex) {
         {
           restaurant: 'au cheval',
           meal: 'burgers',
-          total: 21
+          total: 21,
+          comments: null
         },
       ]);
     });
