@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/', auth, (req, res) => {
+router.get('/', (req, res) => {
   db.get()
     .then(users => {
       res.status(200).json(users)
@@ -62,35 +62,48 @@ router.get('/', auth, (req, res) => {
     .catch(err => res.send(err))
 })
 
-router.get('/:id', auth, (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params
   db.getById(id)
     .then(users => {
       res.status(200).json(users)
     })
-    .catch(err => res.send(err))
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: 'oops something happened'})
+    })
 })
 
 router.get('/:id/meals', (req, res) => {
   const { id } = req.params
   db.getMeal(id)
     .then(meals => {res.status(200).json(meals)})
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: 'oops something happened'})
+    })
 })
 
-router.get('/:id/meals/:id', (req, res) => {
+router.get('/:id/meals/:ids', (req, res) => {
   const { id } = req.params
-  db.getMealById(id)
+  const { ids } = req.params
+  db.getMealById(id, ids)
     .then(meals => {res.status(200).json(meals)})
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: 'oops something happened'})
+    })
 })
 
-router.delete('/:id/meals/:id',  (req, res) => {
+router.delete('/:id/meals/:ids',  (req, res) => {
   const { id } = req.params
-  db.getMealById(id)
+  const { ids } = req.params
+  db.removeMeal(id, ids)
     .then(meals => {res.status(200).json(meals)})
-      db.removeMeal(id)
-        .then(meals => {
-          res.status(200).json(meals)
-        })
-
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: 'oops something happened'})
+    })
 })
+
 module.exports = router
