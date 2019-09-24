@@ -28,7 +28,7 @@ router.post('/register', (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).jason({ error: 'oops something happened'})
+      res.status(500).jason({ error: 'oops something happened' })
     })
 });
 
