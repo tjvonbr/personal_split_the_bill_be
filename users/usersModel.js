@@ -85,11 +85,11 @@ function getMealById(id, ids) {
 function insertMeal(id, changes) {
     return db('meals')
         .join('user_meals', 'meals.id', 'user_meals.meal_id')
-        // .where({ id })
+        .where({ 'meals.id': id })
         .insert(changes)
-        .then( ids => {
-            return getMealBy({ id })
-        })
+            .then(() => {
+                return 'user_meals.user_id', 'users.id'
+            })
 }
 //NW
 function updateMeal(id, ids, changes) {
