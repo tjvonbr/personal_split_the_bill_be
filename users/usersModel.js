@@ -13,6 +13,7 @@ module.exports = {
     update,
     remove,
     getMeal,
+    getMealBy,
     getMealById,
     insertMeal,
     updateMeal,
@@ -53,7 +54,7 @@ function remove(id) {
         .del();
 }
 
-//meals
+// ******MEALS abstract this if time******
 
 function getMeal(id) {
     return db('user_meals')
@@ -62,28 +63,41 @@ function getMeal(id) {
         // .select('user_meals.meal_id')
         .where('users.id', id)
         .join('meals', 'meals.id', "user_meals.meal_id")
-        // .where('users.id', id)   
+        // .where('users.id', id)
         .select('meals.*')
         // .where('users.id', "user_meals.user_id")       
 }
 
+function getMealBy(filter) {
+    return db('meals').where(filter).first()
+  }
+
 function getMealById(id, ids) {
     return db('user_meals')
-        .join('users', 'user_meals.user_id', 'users.id')
-        .where('users.id', id)
-        .join('meals', 'meals.id', "user_meals.meal_id")  
-        .where('meals.id', ids)
+        // .join('users', 'user_meals.user_id', 'users.id')  
+        .join('meals', 'user_meals.meal_id', "meals.id")
+        .where('user_meals.user_id', id)  
+        .andWhere('meals.id', ids)
+        .first()
         .select('meals.*')
 }
-
-function insertMeal(id, ids) {
-    return db('user_meals')
-        
+//NW
+function insertMeal(id, changes) {
+    return db('meals')
+        .join('user_meals', 'meals.id', 'user_meals.meal_id')
+        // .where({ id })
+        .insert(changes)
+        .then( ids => {
+            return getMealBy({ id })
+        })
 }
 //NW
 function updateMeal(id, ids, changes) {
     return db('user_meals')
-        
+    .join('meals', "user_meals.meal_id", 'meals.id')
+    .where('user_meals.meal_id', ids)  
+    .andWhere('user_meals.user_id', id)
+    .update(changes)
 }
 
 function removeMeal(id, ids) {

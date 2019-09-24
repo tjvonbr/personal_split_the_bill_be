@@ -74,6 +74,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
+//**** MEALS MODEL ABSTRACT THIS */
 router.get('/:id/meals', (req, res) => {
   const { id } = req.params
   db.getMeal(id)
@@ -89,6 +90,25 @@ router.get('/:id/meals/:ids', (req, res) => {
   const { ids } = req.params
   db.getMealById(id, ids)
     .then(meals => {res.status(200).json(meals)})
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: 'oops something happened'})
+    })
+})
+
+router.post('/:id/meals/',  (req, res) => {
+  const { id } = req.params
+  const { restaurant, meal, total, comments } = req.body
+  const post = req.body
+  db.getMealBy(id, post)
+    .then(meals => {
+      // console.log(meals)
+      if(!restaurant || !meal || !total ){
+        res.status(400).json({ message: 'owie incorect meal data'}) 
+      } else {
+        res.status(200).json(meals)
+      }
+    })
     .catch(err => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
