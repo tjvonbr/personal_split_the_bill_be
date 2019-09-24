@@ -1,8 +1,8 @@
 # Split-The-Bill API Endpoints
 
 ## Register a new user
-### POST api/user/register
-https://split-the-bill-bw.herokuapp.com/api/users/register
+### POST api/use/register
+https://split-the-bill-bw.herokuapp.com/api/user/register
 
 Expects object:
 ```
@@ -19,7 +19,7 @@ Returns "User Created"
 
 ## Log in a user
 ###  POST api/user/login
-https://split-the-bill-bw.herokuapp.com/api/users/login
+https://split-the-bill-bw.herokuapp.com/api/user/login
 
 Expects object:
 
