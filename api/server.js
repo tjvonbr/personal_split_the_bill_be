@@ -7,7 +7,9 @@ const userRouter = require('../users/usersRouter')
 const mealsRouter = require('../meals/mealsRouter')
 
 const server = express();
-server.use(cors());
+server.use(cors({
+    origin: 'http://localhost:3000'
+}));
 
 server.use(express.json());
 
@@ -18,4 +20,4 @@ server.get('/', (req, res) => {
     res.json({ sanity: 'check'})
 })
 
-module.exports = server;
+module.exports = server
