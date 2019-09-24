@@ -15,20 +15,21 @@ module.exports = {
 }
 
 function get() {
-    return db('users')
+    return db('meals')
 }
 
 function getBy(filter) {
-    return db('users').where(filter)
+    return db('meals')
+        .where(filter)
   }
 
 function getById(id) {
-    return db('users')
+    return db('meals')
         .where({ id })
         .first()
 }
 function insert(user) {
-    return db('users')
+    return db('meals')
         .insert(user, 'id')
         .then(ids => {
         const [id] = ids
@@ -37,13 +38,13 @@ function insert(user) {
 }
 
 function update(id, changes) {
-    return db('users')
+    return db('meals')
       .where({ id })
       .update(changes)
   }
   
   function remove(id) {
-    return db('users')
+    return db('meals')
       .where('id', id)
       .del();
   }
