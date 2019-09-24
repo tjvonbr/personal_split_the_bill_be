@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   if (token) {
     jwt.verify(token, secret.jwtSecret, (err, decoded) => {
       if (err) {
-        res.status(401).json({ message: 'Incorrect credentials provided!' })
+        res.status(401).json({ message: 'You are not authorized!!' })
       } else {
         next()
       }

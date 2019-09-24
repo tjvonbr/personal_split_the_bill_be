@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken')
 const db = require('../users/usersModel')
 const secret = require('../config/secrets')
 
+const auth = require('../auth/authentication')
+
 function generateToken (user) {
   const payload = {
     username: user.username,
@@ -52,7 +54,7 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/',  (req, res) => {
+router.get('/', auth, (req, res) => {
   db.get()
     .then(users => {
       res.status(200).json(users)
@@ -60,7 +62,7 @@ router.get('/',  (req, res) => {
     .catch(err => res.send(err))
 })
 
-router.get('/:id',  (req, res) => {
+router.get('/:id', auth, (req, res) => {
   const { id } = req.params
   db.getById(id)
     .then(users => {
@@ -69,7 +71,13 @@ router.get('/:id',  (req, res) => {
     .catch(err => res.send(err))
 })
 
-router.get('/:id/meals',  (req, res) => {
+router.get('/:id/meals', auth, (req, res) => {
+  const { id } = req.params
+  db.getMealById(id)
+    .then(meals => {res.status(200).json(meals)})
+})
+
+router.delete('/:id/meals', auth, (req, res) => {
   const { id } = req.params
   db.getMealById(id)
     .then(meals => {res.status(200).json(meals)})
