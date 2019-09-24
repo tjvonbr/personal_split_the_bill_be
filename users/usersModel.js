@@ -54,17 +54,17 @@ function getMeal(id) {
     return db('users')
         .join('user_meals', 'users.id', 'user_meals.user_id')
         // .select('user_meals.meal_id')
-        .where('users.id', id)
+        // .where('users.id', id)
         .join('meals', 'meals.id', "user_meals.meal_id")   
         .select('meals.*')
-        // .where('users.id', id)
+        .where('users.id', id)
 }
 
 function getMealById(id) {
     return db('users')
         .join('user_meals', 'users.id', 'user_meals.user_id')
-        // .select('user_meals.meal_id')
-        .where('users.id', id)
+        .select('user_meals.meal_id')
+        // .where('users.id', id)
         .join('meals', 'meals.id', "user_meals.meal_id")   
         .select('meals.*')
         .where('user_meals.meal_id', id)

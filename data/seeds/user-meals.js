@@ -20,6 +20,7 @@ exports.seed = function(knex) {
           meal_id: 1,
           paid: false
         },
+        
       ]);
     });
 };
