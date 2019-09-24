@@ -1,7 +1,8 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('user_meals').del()
+  return knex('user_meals')
+    .del()
     .then(function () {
       // Inserts seed entries
       return knex('user_meals').insert([
@@ -20,7 +21,6 @@ exports.seed = function(knex) {
           meal_id: 1,
           paid: false
         },
-        
       ]);
     });
 };
