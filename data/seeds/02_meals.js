@@ -9,13 +9,13 @@ exports.seed = function(knex) {
         {
           restaurant: 'slyce',
           meal: 'two pizzas and wings',
-          total: 42,
+          total: 42.50,
           comments: 'meal includes drinks'
         },
         {
           restaurant: 'au cheval',
           meal: 'burgers',
-          total: 21,
+          total: 21.25,
           comments: null
         },
       ]);
