@@ -13,7 +13,6 @@ module.exports = {
     update,
     remove,
     getMeal,
-    getMealBy,
     getMealById,
     insertMeal,
     updateMeal,
@@ -59,39 +58,36 @@ function remove(id) {
 function getMeal(id) {
     return db('user_meals')
         // .select('*')
-        .join('users', 'user_meals.user_id', 'users.id')
+        // .join('users', 'user_meals.user_id', 'users.id')
         // .select('user_meals.meal_id')
-        .where('users.id', id)
-        .join('meals', 'meals.id', "user_meals.meal_id")
         // .where('users.id', id)
+        .join('meals', 'meals.id', "user_meals.meal_id")
+        .where('user_meals.user_id', id) 
         .select('meals.*')
         // .where('users.id', "user_meals.user_id")       
 }
 
-function getMealBy(filter) {
-    return db('meals').where(filter).first()
-  }
-
 function getMealById(id, ids) {
     return db('user_meals')
-        // .join('users', 'user_meals.user_id', 'users.id')  
-        .join('meals', 'user_meals.meal_id', "meals.id")
+        // .join('users', 'user_meals.user_id', 'users.id')
+        .join('meals', 'meals.id', "user_meals.meal_id")
         .where('user_meals.user_id', id)  
         .andWhere('meals.id', ids)
         .first()
         .select('meals.*')
 }
-//NW
+// ***********************************************************
+//NW /* When a new meal is created the FK does not update */
 function insertMeal(id, changes) {
     return db('meals')
-        .join('user_meals', 'meals.id', 'user_meals.meal_id')
-        .where({ 'meals.id': id })
-        .insert(changes)
-            .then(() => {
-                return 'user_meals.user_id', 'users.id'
-            })
+    .join('user_meals', 'meals.id', 'user_meals.meal_id')
+    .where('user_meals', id)
+    .insert(changes)
+    .then( ids => {
+        return getMealById({ id: ids[0]})
+    })
 }
-//NW
+//NW - havent started
 function updateMeal(id, ids, changes) {
     return db('user_meals')
     .join('meals', "user_meals.meal_id", 'meals.id')

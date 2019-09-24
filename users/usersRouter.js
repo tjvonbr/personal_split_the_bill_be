@@ -100,16 +100,13 @@ router.post('/:id/meals/',  (req, res) => {
   const { id } = req.params
   const { restaurant, meal, total, comments } = req.body
   const post = req.body
-  db.getById({id})
+  db.insertMeal(id, post)
     .then(meals => {
       // console.log(meals)
-      if(!meal ){
+      if(!restaurant || !meal || !total ){
         res.status(400).json({ message: 'owie incorect meal data'}) 
       } else {
-        db.insertMeal(id, post)
-        .then(meal => {
-          res.status(200).json(meal)
-        }) 
+        res.status(200).json(meals)
       }
     })
     .catch(err => {
