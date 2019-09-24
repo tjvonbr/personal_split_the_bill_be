@@ -1,28 +1,32 @@
 # Split-The-Bill API Endpoints
 
-## POST /user/register
+## Register a new user
+### POST api/use/register
+https://split-the-bill-bw.herokuapp.com/api/user/register
 
 Expects object:
-
 ```
 {
-    "username": "test",
+    "firstName": "test",
+    "lastName": "test",
     "email": "test@test.com",
-    "password": "test"
+    "username": "test",
+    "password": "test123"
 }
 ```
 
 Returns "User Created"
 
-##  POST /user/login
+## Log in a user
+###  POST api/user/login
+https://split-the-bill-bw.herokuapp.com/api/user/login
 
 Expects object:
 
 ```
 {
     "username": "test",
-    "email": "test@test.com",
-    "password": "test"
+    "password": "test123"
 }
 ```
 
