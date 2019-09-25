@@ -85,26 +85,10 @@ function getUserMealById(id, ids) {
 }
 // ***********************************************************
 // Needs CLEAN UP*/
-function insertMeal(id, changes) {
-    return db('meals')
-    .insert(changes, 'id')
-    .then(ids => {
-        // console.log(id)
-        return getMealById(ids[0].id)
-    })
-    .then(meal => {
-        // console.log(meal)
-        const body = {user_id: id, meal_id: meal.id}
-        return db('user_meals')
-        .insert(body, 'id')
-    })
-    .then(id => {
-        res.status(200).json(meal)
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({ message: 'oops server did not function'})
-    })
+async function insertMeal(id, changes) {
+    const id = await db('meals').insert(changes, 'id')
+
+    return getMealById(id[0].id)
 }
 //NW - havent started
 function updateMeal(id, changes) {
