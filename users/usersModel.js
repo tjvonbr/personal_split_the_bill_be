@@ -86,9 +86,9 @@ function getUserMealById(id, ids) {
 // ***********************************************************
 // Needs CLEAN UP*/
 async function insertMeal(id, changes) {
-    const id = await db('meals').insert(changes, 'id')
+    const meal = await db('meals').insert(changes, 'id')
 
-    return getMealById(id[0].id)
+    return getMealById(meal[0].id)
 }
 //NW - havent started
 function updateMeal(id, changes) {
