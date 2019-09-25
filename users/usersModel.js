@@ -101,7 +101,7 @@ function insertMeal(id, changes) {
     .then( id , (req, res)=> {
         res.status(200).json(meal)
     })
-    .catch(err => {
+    .catch(err, (req, res) => {
         console.log(err)
         res.status(500).json({ message: 'oops server did not function'})
     })
