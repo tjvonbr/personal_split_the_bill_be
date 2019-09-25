@@ -86,9 +86,10 @@ router.get('/:id', (req, res) => {
     .catch(err => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
-//   db.getByIdWithMeals(id)
-//     .then(users => {
-//       res.status(200).json(users)
+
+  // db.getByIdWithMeals(id)
+  //   .then(users => {
+  //     res.status(200).json(users)
     })
 })
 
@@ -107,9 +108,8 @@ router.get('/:id/meals', (req, res) => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
     })
-//   db.getMealsByUserId(id)
-//     .then(meals => {res.status(200).json(meals)})
-
+  // db.getMealsByUserId(id)
+  //   .then(meals => {res.status(200).json(meals)})
 })
 
 router.get('/:id/meals/:ids', (req, res) => {
@@ -176,7 +176,6 @@ router.delete('/:id/meals/:ids',  (req, res) => {
 })
 
 module.exports = router
-
 //   db.getMealById(id)
 //     .then(meals => {res.status(200).json(meals)})
 //       db.removeMeal(id)

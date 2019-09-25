@@ -87,7 +87,7 @@ function getUserMealById(id, ids) {
 // Needs CLEAN UP*/
 function insertMeal(id, changes) {
     return db('meals')
-    .insert(changes)
+    .insert(changes, 'id')
     .then( ids => {
         // console.log(id)
         return getMealById(ids[0])
@@ -96,7 +96,7 @@ function insertMeal(id, changes) {
         // console.log(meal)
         const body = {user_id: id, meal_id: meal.id}
         return db('user_meals')
-        .insert(body)
+        .insert(body, 'id')
     })
     .then( id , (req, res)=> {
         res.status(200).json(meal)
@@ -124,7 +124,7 @@ function removeMeal(id, ids) {
         .del()
 }
 
-// Alternative helper function for getMealById(id)
+// // Alternative helper function for getMealById(id)
 // function getMealsByUserId(id) {
 //   return db('user_meals AS um')
 //     .select(['um.user_id', 'um.meal_id', 'm.id', 'm.restaurant', 'm.meal', 'm.total', 'm.comments'])
@@ -143,6 +143,5 @@ function removeMeal(id, ids) {
 //       return user;
 //     });
 // };
-
 
 
