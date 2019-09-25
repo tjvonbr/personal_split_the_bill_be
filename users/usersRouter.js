@@ -64,7 +64,7 @@ router.get('/', auth, (req, res) => {
 
 router.get('/:id', auth, (req, res) => {
   const { id } = req.params
-  db.getById(id)
+  db.getByIdWithMeals(id)
     .then(users => {
       res.status(200).json(users)
     })
@@ -73,7 +73,7 @@ router.get('/:id', auth, (req, res) => {
 
 router.get('/:id/meals', (req, res) => {
   const { id } = req.params
-  db.getMeal(id)
+  db.getMealsByUserId(id)
     .then(meals => {res.status(200).json(meals)})
 })
 
