@@ -81,15 +81,18 @@ function getUserMealById(id, ids) {
         .where('user_meals.user_id', id)  
         .where('meals.id', ids)
         .first()
-        .select('meals.*')
+        .select('*')
 }
 // ***********************************************************
 // Needs CLEAN UP*/
 async function insertMeal(id, changes) {
     const meal = await db('meals').insert(changes, ['id'])
+    const mealId = meal[0].id;
 
+    await db('user-meals').insert({'user_id': id, 'meal_id': mealId})
     return getMealById(meal[0].id)
 }
+
 //NW - havent started
 function updateMeal(id, changes) {
     return db('meals')
