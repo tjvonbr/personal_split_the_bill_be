@@ -91,6 +91,13 @@ router.delete('/:id/meals/:id',  (req, res) => {
         .then(meals => {
           res.status(200).json(meals)
         })
-
 })
-module.exports = router
+
+router.post('/:id/meals/', (req, res) => {
+  const { id } = req.params;
+  const newMeal = req.body;
+
+  db.insertMealForUser(id)
+    .then()
+})
+module.exports = router;
