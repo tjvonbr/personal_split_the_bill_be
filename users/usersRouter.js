@@ -39,6 +39,8 @@ router.post('/login', (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
+        // const user = req.user.id
+        // console.log(user)
         const token = generateToken(user)
         res.status(200).json({
           message: `Welcome ${user.username}!`,
@@ -64,7 +66,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params
-  db.getById(id)
+  db.getByI(id)
     .then(users => {
       res.status(200).json(users)
     })
@@ -87,7 +89,7 @@ router.get('/:id/meals', (req, res) => {
 
 router.get('/:id/meals/:ids', (req, res) => {
   const { id } = req.params
-  const { ids } = req.params
+  // const { ids } = req.params
   db.getMealById(id, ids)
     .then(meals => {res.status(200).json(meals)})
     .catch(err => {

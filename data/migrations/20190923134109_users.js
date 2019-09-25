@@ -42,6 +42,7 @@ exports.up = function(knex) {
     .createTable('user_meals', tbl => {
       tbl
         .integer('user_id')
+        .notNullable()
         .unsigned()
         .references('id')
         .inTable('users')

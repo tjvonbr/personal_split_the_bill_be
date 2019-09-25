@@ -5,10 +5,12 @@ const environment = process.env.DB_ENV || 'development'
 
 const db = knex(config[environment])
 
+const { getById } = require('../meals/mealsModel')
+
 module.exports = {
     get,
     getBy,
-    getById,
+    getByI,
     insert,
     update,
     remove,
@@ -27,7 +29,7 @@ function getBy(filter) {
     return db('users').where(filter)
   }
 
-function getById(id) {
+function getByI(id) {
     return db('users')
         .where({ id })
         .first()
@@ -71,8 +73,8 @@ function getMealById(id, ids) {
     return db('user_meals')
         // .join('users', 'user_meals.user_id', 'users.id')
         .join('meals', 'meals.id', "user_meals.meal_id")
-        .where('user_meals.user_id', id)  
-        .andWhere('meals.id', ids)
+        // .where('user_meals.user_id', id)  
+        .where('meals.id', id)
         .first()
         .select('meals.*')
 }
@@ -80,11 +82,26 @@ function getMealById(id, ids) {
 //NW /* When a new meal is created the FK does not update */
 function insertMeal(id, changes) {
     return db('meals')
-    .join('user_meals', 'meals.id', 'user_meals.meal_id')
-    .where('user_meals', id)
+    // .join('user_meals', 'meals.id', 'user_meals.meal_id')
+    // .where('user_meals.meal_id', ids)
+    // .andWhere('user_meals.user_id', id)
     .insert(changes)
     .then( ids => {
-        return getMealById({ id: ids[0]})
+        console.log(id)
+        return getById(ids[0])
+    })
+    .then( meal => {
+        console.log(meal)
+        const body = {user_id: id, meal_id: meal.id}
+        return db('user_meals')
+        .insert(body)
+    })
+    .then( id , (req, res)=> {
+        res.status(200).json(meal)
+    })
+    .catch(err => {
+        console.log(err)
+        res.send('jksdbfgjshdbf')
     })
 }
 //NW - havent started
