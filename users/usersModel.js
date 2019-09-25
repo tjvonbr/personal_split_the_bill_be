@@ -32,7 +32,7 @@ function getBy(filter) {
 function getByI(id) {
     return db('users')
         .where({ id })
-        .first()
+        // .first()
 }
 function insert(user) {
     return db('users')
@@ -73,8 +73,8 @@ function getMealById(id, ids) {
     return db('user_meals')
         // .join('users', 'user_meals.user_id', 'users.id')
         .join('meals', 'meals.id', "user_meals.meal_id")
-        // .where('user_meals.user_id', id)  
-        .where('meals.id', id)
+        .where('user_meals.user_id', id)  
+        .where('meals.id', ids)
         .first()
         .select('meals.*')
 }
@@ -87,11 +87,11 @@ function insertMeal(id, changes) {
     // .andWhere('user_meals.user_id', id)
     .insert(changes)
     .then( ids => {
-        console.log(id)
+        // console.log(id)
         return getById(ids[0])
     })
     .then( meal => {
-        console.log(meal)
+        // console.log(meal)
         const body = {user_id: id, meal_id: meal.id}
         return db('user_meals')
         .insert(body)
@@ -100,7 +100,7 @@ function insertMeal(id, changes) {
         res.status(200).json(meal)
     })
     .catch(err => {
-        console.log(err)
+        // console.log(err)
         res.send('jksdbfgjshdbf')
     })
 }

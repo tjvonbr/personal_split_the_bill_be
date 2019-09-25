@@ -67,8 +67,12 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const { id } = req.params
   db.getByI(id)
-    .then(users => {
-      res.status(200).json(users)
+  .then(user => {
+    if(user.length === 0){
+      res.status(404).json({ message: 'No user here'})
+      } else {
+        res.status(200).json(user)
+      }
     })
     .catch(err => {
       console.log(err)
@@ -80,7 +84,13 @@ router.get('/:id', (req, res) => {
 router.get('/:id/meals', (req, res) => {
   const { id } = req.params
   db.getMeal(id)
-    .then(meals => {res.status(200).json(meals)})
+    .then(meals => {
+      if(meals.length === 0){
+        res.status(404).json({ message: 'No user here'})
+        } else {
+          res.status(200).json(meals)
+        }
+      })
     .catch(err => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
@@ -89,7 +99,7 @@ router.get('/:id/meals', (req, res) => {
 
 router.get('/:id/meals/:ids', (req, res) => {
   const { id } = req.params
-  // const { ids } = req.params
+  const { ids } = req.params
   db.getMealById(id, ids)
     .then(meals => {res.status(200).json(meals)})
     .catch(err => {
@@ -102,26 +112,35 @@ router.post('/:id/meals/',  (req, res) => {
   const { id } = req.params
   const { restaurant, meal, total, comments } = req.body
   const post = req.body
-  db.insertMeal(id, post)
-    .then(meals => {
-      // console.log(meals)
-      if(!restaurant || !meal || !total ){
-        res.status(400).json({ message: 'owie incorect meal data'}) 
+  
+    if(!restaurant || !meal || !total ){
+        res.status(400).json({ message: 'owie incorect meal data'})
       } else {
-        res.status(200).json(meals)
-      }
+      db.insertMeal(id, post) 
+      .then(meals => {
+      // console.log(meals)    
+      res.status(200).json(meals)     
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(500).json({ error: 'oops something happened'})
     })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({ error: 'oops something happened'})
-    })
+    }
+    
 })
 
 router.delete('/:id/meals/:ids',  (req, res) => {
   const { id } = req.params
   const { ids } = req.params
   db.removeMeal(id, ids)
-    .then(meals => {res.status(200).json(meals)})
+    .then(meals => {
+      // console.log(meals)
+      if(meals === 0){
+        res.status(400).json({ message: 'incorrect id'})
+      } else {
+        res.status(200).json(meals)
+      }
+      })    
     .catch(err => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
