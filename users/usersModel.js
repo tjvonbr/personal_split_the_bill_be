@@ -89,7 +89,7 @@ async function insertMeal(id, changes) {
     const meal = await db('meals').insert(changes, ['id'])
     const mealId = meal[0].id;
 
-    await db('user-meals').insert({'user_id': id, 'meal_id': mealId})
+    await db('user_meals').insert({'user_id': id, 'meal_id': mealId})
     return getMealById(meal[0].id)
 }
 
