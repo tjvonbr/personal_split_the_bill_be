@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).jason({ error: 'oops something happened'})
+      res.status(500).jason({ error: 'oops something happened' })
     })
   }
 });
@@ -75,6 +75,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params
+<<<<<<< HEAD
   db.getById(id)
   .then(user => {
     if(user.length === 0){
@@ -86,12 +87,18 @@ router.get('/:id', (req, res) => {
     .catch(err => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
+=======
+  db.getByIdWithMeals(id)
+    .then(users => {
+      res.status(200).json(users)
+>>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b
     })
 })
 
 //**** MEALS MODEL ABSTRACT THIS IF TIME*/
 router.get('/:id/meals', (req, res) => {
   const { id } = req.params
+<<<<<<< HEAD
   db.getMeal(id)
     .then(meals => {
       if(meals.length === 0){
@@ -104,6 +111,10 @@ router.get('/:id/meals', (req, res) => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
     })
+=======
+  db.getMealsByUserId(id)
+    .then(meals => {res.status(200).json(meals)})
+>>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b
 })
 
 router.get('/:id/meals/:ids', (req, res) => {
@@ -119,6 +130,7 @@ router.get('/:id/meals/:ids', (req, res) => {
 
 router.post('/:id/meals/',  (req, res) => {
   const { id } = req.params
+<<<<<<< HEAD
   const { restaurant, meal, total, comments } = req.body
   const post = req.body
   
@@ -170,3 +182,21 @@ router.delete('/:id/meals/:ids',  (req, res) => {
 })
 
 module.exports = router
+=======
+  db.getMealById(id)
+    .then(meals => {res.status(200).json(meals)})
+      db.removeMeal(id)
+        .then(meals => {
+          res.status(200).json(meals)
+        })
+})
+
+router.post('/:id/meals/', (req, res) => {
+  const { id } = req.params;
+  const newMeal = req.body;
+
+  db.insertMealForUser(id)
+    .then()
+})
+module.exports = router;
+>>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b

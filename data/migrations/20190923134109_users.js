@@ -33,7 +33,7 @@ exports.up = function(knex) {
         .string('meal', 100)
         .notNullable()
       tbl
-        .decimal('total', 2)
+        .decimal('total')
         .notNullable()
       tbl
         .string('comments', 250)
