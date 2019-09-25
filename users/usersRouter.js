@@ -18,23 +18,31 @@ function generateToken (user) {
 }
 
 router.post('/register', (req, res) => {
+  let { firstName, lastName, email, username, password } = req.body
   let user = req.body
   const hash = bcrypt.hashSync(user.password, 10)
   user.password = hash
-
+  if( !firstName || !lastName || !email || !username || !password ){
+    res.status(400).json({ message: 'invalid credentials obj' })
+  } else {
   db.insert(user)
     .then(newUser => {
+      console.log(user)
       res.status(200).json(newUser)
     })
     .catch(err => {
       console.log(err)
       res.status(500).jason({ error: 'oops something happened'})
     })
+  }
 });
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body
-
+  if( !username || !password ){
+    res.status(400).json({ message: 'Invalid data object'})
+  }
+  else {
   db.getBy({ username })
     .first()
     .then(user => {
@@ -54,6 +62,7 @@ router.post('/login', (req, res) => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
     })
+  }
 })
 
 router.get('/', (req, res) => {
@@ -80,7 +89,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-//**** MEALS MODEL ABSTRACT THIS */
+//**** MEALS MODEL ABSTRACT THIS IF TIME*/
 router.get('/:id/meals', (req, res) => {
   const { id } = req.params
   db.getMeal(id)
@@ -125,8 +134,21 @@ router.post('/:id/meals/',  (req, res) => {
         console.log(err)
         res.status(500).json({ error: 'oops something happened'})
     })
-    }
-    
+    }  
+})
+
+router.put('/:id/meals', (req, res) => {
+  const { id } = req.params
+  const { restaurant,meal, total, comments } = req.body
+  const body = req.body
+  if(!restaurant || !meal || !total ){
+    res.status(400).json({ message: 'Invalid obj data'})
+  } else {
+  db.updateMeal(id, body)
+    .then( newMeal => {
+      res.status(200).json(newMeal)
+    })
+  }
 })
 
 router.delete('/:id/meals/:ids',  (req, res) => {
@@ -136,7 +158,7 @@ router.delete('/:id/meals/:ids',  (req, res) => {
     .then(meals => {
       // console.log(meals)
       if(meals === 0){
-        res.status(400).json({ message: 'incorrect id'})
+        res.status(404).json({ message: 'incorrect id'})
       } else {
         res.status(200).json(meals)
       }

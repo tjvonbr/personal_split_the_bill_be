@@ -39,7 +39,7 @@ function insert(user) {
         .insert(user, 'id')
         .then(ids => {
         const [id] = ids
-        return getById(id)
+        return getByI(id)
         })
 }
 
@@ -79,7 +79,7 @@ function getMealById(id, ids) {
         .select('meals.*')
 }
 // ***********************************************************
-//NW /* When a new meal is created the FK does not update */
+// Needs CLEAN UP*/
 function insertMeal(id, changes) {
     return db('meals')
     // .join('user_meals', 'meals.id', 'user_meals.meal_id')
@@ -100,17 +100,15 @@ function insertMeal(id, changes) {
         res.status(200).json(meal)
     })
     .catch(err => {
-        // console.log(err)
-        res.send('jksdbfgjshdbf')
+        console.log(err)
+        res.status(500).json({ message: 'oops server did not function'})
     })
 }
 //NW - havent started
-function updateMeal(id, ids, changes) {
-    return db('user_meals')
-    .join('meals', "user_meals.meal_id", 'meals.id')
-    .where('user_meals.meal_id', ids)  
-    .andWhere('user_meals.user_id', id)
-    .update(changes)
+function updateMeal(id, changes) {
+    return db('meals')
+      .where({ id })
+      .update(changes)
 }
 
 function removeMeal(id, ids) {
