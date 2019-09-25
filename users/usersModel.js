@@ -14,8 +14,15 @@ module.exports = {
     remove,
     getMeal,
     getMealById,
+<<<<<<< HEAD
+    getUserMealById,
+    insertMeal,
+    updateMeal,
+    removeMeal
+=======
     getMealsByUserId,
     getByIdWithMeals,
+>>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b
 }
 
 function get() {
@@ -29,7 +36,7 @@ function getBy(filter) {
 function getById(id) {
     return db('users')
         .where({ id })
-        .first()
+        // .first()
 }
 function insert(user) {
     return db('users')
@@ -52,26 +59,77 @@ function remove(id) {
         .del();
 }
 
-function getMeal(id) {
-    return db('users')
-        .join('user_meals', 'users.id', 'user_meals.user_id')
-        // .select('user_meals.meal_id')
-        // .where('users.id', id)
-        .join('meals', 'meals.id', "user_meals.meal_id")   
-        .select('meals.*')
-        .where('users.id', id)
-}
+// ******MEALS abstract this if time******
 
 function getMealById(id) {
-    return db('users')
-        .join('user_meals', 'users.id', 'user_meals.user_id')
-        .select('user_meals.meal_id')
-        // .where('users.id', id)
-        .join('meals', 'meals.id', "user_meals.meal_id")   
-        .select('meals.*')
-        .where('user_meals.meal_id', id)
+    return db('meals')
+        .where({ id })
+        .first()
 }
 
+function getMeal(id) {
+    return db('user_meals')
+        // .select('*')
+        // .join('users', 'user_meals.user_id', 'users.id')
+        // .select('user_meals.meal_id')
+        // .where('users.id', id)
+        .join('meals', 'meals.id', "user_meals.meal_id")
+        .where('user_meals.user_id', id) 
+        .select('meals.*')
+        // .where('users.id', "user_meals.user_id")       
+}
+
+function getUserMealById(id, ids) {
+    return db('user_meals')
+        // .join('users', 'user_meals.user_id', 'users.id')
+        .join('meals', 'meals.id', "user_meals.meal_id")
+        .where('user_meals.user_id', id)  
+        .where('meals.id', ids)
+        .first()
+        .select('meals.*')
+}
+// ***********************************************************
+// Needs CLEAN UP*/
+function insertMeal(id, changes) {
+    return db('meals')
+    .insert(changes)
+    .then( ids => {
+        // console.log(id)
+        return getMealById(ids[0])
+    })
+    .then( meal => {
+        // console.log(meal)
+        const body = {user_id: id, meal_id: meal.id}
+        return db('user_meals')
+        .insert(body)
+    })
+    .then( id , (req, res)=> {
+        res.status(200).json(meal)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({ message: 'oops server did not function'})
+    })
+}
+//NW - havent started
+function updateMeal(id, changes) {
+    return db('meals')
+      .where({ id })
+      .update(changes)
+}
+
+<<<<<<< HEAD
+function removeMeal(id, ids) {
+    return db('user_meals')
+        // .join('users', 'user_meals.user_id', 'users.id')
+        .join('meals', "user_meals.meal_id", 'meals.id')
+        .where('user_meals.meal_id', ids)  
+        .andWhere('user_meals.user_id', id)
+        .first()
+        // .select('meals.*')
+        .del()
+}
+=======
 // Alternative helper function for getMealById(id)
 function getMealsByUserId(id) {
   return db('user_meals AS um')
@@ -91,5 +149,6 @@ function getByIdWithMeals(id) {
       return user;
     });
 };
+>>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b
 
 
