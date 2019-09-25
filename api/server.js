@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors');
 
-console.log('environment', process.env.NODE_ENV);
+console.log('environment', process.env.NODE_ENV || 'development');
 
 const userRouter = require('../users/usersRouter')
 const mealsRouter = require('../meals/mealsRouter')
