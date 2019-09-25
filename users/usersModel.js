@@ -90,7 +90,7 @@ function insertMeal(id, changes) {
     .insert(changes, 'id')
     .then( ids => {
         // console.log(id)
-        return getMealById(ids[0])
+        return getMealById(ids[0].id)
     })
     .then( meal => {
         // console.log(meal)
@@ -101,7 +101,7 @@ function insertMeal(id, changes) {
     .then( id , (req, res)=> {
         res.status(200).json(meal)
     })
-    .catch(err, (req, res) => {
+    .catch(err => {
         console.log(err)
         res.status(500).json({ message: 'oops server did not function'})
     })
