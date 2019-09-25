@@ -88,20 +88,20 @@ function getUserMealById(id, ids) {
 function insertMeal(id, changes) {
     return db('meals')
     .insert(changes, 'id')
-    .then( ids => {
+    .then(ids => {
         // console.log(id)
         return getMealById(ids[0].id)
     })
-    .then( meal => {
+    .then(meal => {
         // console.log(meal)
         const body = {user_id: id, meal_id: meal.id}
         return db('user_meals')
         .insert(body, 'id')
     })
-    .then( id , (req, res)=> {
+    .then(id => {
         res.status(200).json(meal)
     })
-    .catch(err, (req, res) => {
+    .catch(err => {
         console.log(err)
         res.status(500).json({ message: 'oops server did not function'})
     })
