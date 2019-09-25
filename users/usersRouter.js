@@ -75,7 +75,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params
-  db.getByI(id)
+  db.getById(id)
   .then(user => {
     if(user.length === 0){
       res.status(404).json({ message: 'No user here'})
@@ -109,7 +109,7 @@ router.get('/:id/meals', (req, res) => {
 router.get('/:id/meals/:ids', (req, res) => {
   const { id } = req.params
   const { ids } = req.params
-  db.getMealById(id, ids)
+  db.getUserMealById(id, ids)
     .then(meals => {res.status(200).json(meals)})
     .catch(err => {
       console.log(err)
@@ -158,7 +158,7 @@ router.delete('/:id/meals/:ids',  (req, res) => {
     .then(meals => {
       // console.log(meals)
       if(meals === 0){
-        res.status(404).json({ message: 'incorrect id'})
+        res.status(404).json({ message: 'incorrect/ invalid id'})
       } else {
         res.status(200).json(meals)
       }

@@ -5,17 +5,16 @@ const environment = process.env.DB_ENV || 'development'
 
 const db = knex(config[environment])
 
-const { getById } = require('../meals/mealsModel')
-
 module.exports = {
     get,
     getBy,
-    getByI,
+    getById,
     insert,
     update,
     remove,
     getMeal,
     getMealById,
+    getUserMealById,
     insertMeal,
     updateMeal,
     removeMeal
@@ -29,7 +28,7 @@ function getBy(filter) {
     return db('users').where(filter)
   }
 
-function getByI(id) {
+function getById(id) {
     return db('users')
         .where({ id })
         // .first()
@@ -39,7 +38,7 @@ function insert(user) {
         .insert(user, 'id')
         .then(ids => {
         const [id] = ids
-        return getByI(id)
+        return getById(id)
         })
 }
 
@@ -57,6 +56,12 @@ function remove(id) {
 
 // ******MEALS abstract this if time******
 
+function getMealById(id) {
+    return db('meals')
+        .where({ id })
+        .first()
+}
+
 function getMeal(id) {
     return db('user_meals')
         // .select('*')
@@ -69,7 +74,7 @@ function getMeal(id) {
         // .where('users.id', "user_meals.user_id")       
 }
 
-function getMealById(id, ids) {
+function getUserMealById(id, ids) {
     return db('user_meals')
         // .join('users', 'user_meals.user_id', 'users.id')
         .join('meals', 'meals.id', "user_meals.meal_id")
@@ -82,13 +87,10 @@ function getMealById(id, ids) {
 // Needs CLEAN UP*/
 function insertMeal(id, changes) {
     return db('meals')
-    // .join('user_meals', 'meals.id', 'user_meals.meal_id')
-    // .where('user_meals.meal_id', ids)
-    // .andWhere('user_meals.user_id', id)
     .insert(changes)
     .then( ids => {
         // console.log(id)
-        return getById(ids[0])
+        return getMealById(ids[0])
     })
     .then( meal => {
         // console.log(meal)
