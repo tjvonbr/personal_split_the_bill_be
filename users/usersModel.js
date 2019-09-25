@@ -18,8 +18,6 @@ module.exports = {
     insertMeal,
     updateMeal,
     removeMeal
-    // getMealsByUserId,
-    // getByIdWithMeals,
 }
 
 function get() {
