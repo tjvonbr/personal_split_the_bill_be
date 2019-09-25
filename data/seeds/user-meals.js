@@ -19,7 +19,12 @@ exports.seed = function(knex) {
           user_id: 2,
           meal_id: 1,
           paid: false
-        },       
+        },
+        {
+          user_id: 2,
+          meal_id: 2,
+          paid: false 
+        }      
       ]);
     });
 };
