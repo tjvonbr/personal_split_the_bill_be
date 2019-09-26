@@ -124,11 +124,7 @@ function removeMeal(id, ids) {
         .del()
 }
 
-<<<<<<< HEAD
-// Alternative helper function for getMealById(id)
-=======
 // // Alternative helper function for getMealById(id)
->>>>>>> 4f82abc22e42a630d58e34db7d994dfa3c09246d
 // function getMealsByUserId(id) {
 //   return db('user_meals AS um')
 //     .select(['um.user_id', 'um.meal_id', 'm.id', 'm.restaurant', 'm.meal', 'm.total', 'm.comments'])
@@ -147,9 +143,5 @@ function removeMeal(id, ids) {
 //       return user;
 //     });
 // };
-<<<<<<< HEAD
-
-=======
->>>>>>> 4f82abc22e42a630d58e34db7d994dfa3c09246d
 
 

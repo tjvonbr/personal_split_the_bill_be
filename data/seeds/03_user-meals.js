@@ -20,11 +20,7 @@ exports.seed = function(knex) {
           user_id: 2,
           meal_id: 1,
           paid: false
-<<<<<<< HEAD
-        }
-=======
         }   
->>>>>>> 4f82abc22e42a630d58e34db7d994dfa3c09246d
       ]);
     });
 };
