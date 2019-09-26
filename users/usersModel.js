@@ -14,15 +14,10 @@ module.exports = {
     remove,
     getMeal,
     getMealById,
-<<<<<<< HEAD
     getUserMealById,
     insertMeal,
     updateMeal,
     removeMeal
-=======
-    getMealsByUserId,
-    getByIdWithMeals,
->>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b
 }
 
 function get() {
@@ -118,7 +113,6 @@ function updateMeal(id, changes) {
       .update(changes)
 }
 
-<<<<<<< HEAD
 function removeMeal(id, ids) {
     return db('user_meals')
         // .join('users', 'user_meals.user_id', 'users.id')
@@ -129,26 +123,26 @@ function removeMeal(id, ids) {
         // .select('meals.*')
         .del()
 }
-=======
-// Alternative helper function for getMealById(id)
-function getMealsByUserId(id) {
-  return db('user_meals AS um')
-    .select(['um.user_id', 'um.meal_id', 'm.id', 'm.restaurant', 'm.meal', 'm.total', 'm.comments'])
-    .join('meals AS m', 'um.meal_id', 'm.id')
-    .where({ user_id: id })
-};
 
-// Alternative helper function for getById(id)
-function getByIdWithMeals(id) {
-  const userQuery = get().where({ id }).first();
-  const mealsQuery = getMealsByUserId(id);
+// Alternative helper function for getMealById(id)
+// function getMealsByUserId(id) {
+//   return db('user_meals AS um')
+//     .select(['um.user_id', 'um.meal_id', 'm.id', 'm.restaurant', 'm.meal', 'm.total', 'm.comments'])
+//     .join('meals AS m', 'um.meal_id', 'm.id')
+//     .where({ user_id: id })
+// };
+
+// // Alternative helper function for getById(id)
+// function getByIdWithMeals(id) {
+//   const userQuery = get().where({ id }).first();
+//   const mealsQuery = getMealsByUserId(id);
   
-  return Promise.all([userQuery, mealsQuery])
-    .then(([user, meals]) => {
-      user.meals = meals;
-      return user;
-    });
-};
->>>>>>> 2afe46b3434dc443b1383c6519d15194b185b69b
+//   return Promise.all([userQuery, mealsQuery])
+//     .then(([user, meals]) => {
+//       user.meals = meals;
+//       return user;
+//     });
+// };
+
 
 
