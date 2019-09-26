@@ -7,9 +7,7 @@ const userRouter = require('../users/usersRouter')
 const mealsRouter = require('../meals/mealsRouter')
 
 const server = express();
-server.use(cors({
-    origin: ['http://localhost:3000', 'https://splitthebillbw.netlify.com/']
-}));
+server.use(cors());
 
 server.use(express.json());
 
