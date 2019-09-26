@@ -86,6 +86,13 @@ router.get('/:id', (req, res) => {
     .catch(err => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
+<<<<<<< HEAD
+=======
+
+  // db.getByIdWithMeals(id)
+  //   .then(users => {
+  //     res.status(200).json(users)
+>>>>>>> 4f82abc22e42a630d58e34db7d994dfa3c09246d
     })
 })
 
@@ -104,6 +111,11 @@ router.get('/:id/meals', (req, res) => {
       console.log(err)
       res.status(500).json({ error: 'oops something happened'})
     })
+<<<<<<< HEAD
+=======
+  // db.getMealsByUserId(id)
+  //   .then(meals => {res.status(200).json(meals)})
+>>>>>>> 4f82abc22e42a630d58e34db7d994dfa3c09246d
 })
 
 router.get('/:id/meals/:ids', (req, res) => {
@@ -170,4 +182,23 @@ router.delete('/:id/meals/:ids',  (req, res) => {
 })
 
 module.exports = router
+<<<<<<< HEAD
 
+=======
+//   db.getMealById(id)
+//     .then(meals => {res.status(200).json(meals)})
+//       db.removeMeal(id)
+//         .then(meals => {
+//           res.status(200).json(meals)
+//         })
+// })
+
+// router.post('/:id/meals/', (req, res) => {
+//   const { id } = req.params;
+//   const newMeal = req.body;
+
+//   db.insertMealForUser(id)
+//     .then()
+// })
+// module.exports = router;
+>>>>>>> 4f82abc22e42a630d58e34db7d994dfa3c09246d
