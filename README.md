@@ -64,7 +64,7 @@ Returns meals by user_id as an array.
 All keys are required except *description*
 
 ## Get single meal for user
-### GET /user/:id/meal/:ids
+### GET /user/:id/meals/:ids
 
 Returns single meal by user_id as an object.
 
@@ -80,7 +80,7 @@ Returns single meal by user_id as an object.
 All keys are required except *description*
 
 ## Create new meal
-### POST /user/:id/meal/
+### POST /user/:id/meals/
 
 Creates single meal by user_id as an object.
 
@@ -97,7 +97,7 @@ All keys are required except *description*
 
 
 ## Change meal
-### PUT /user/:id/meal/
+### PUT /user/:id/meals/
 
 Updates single meal by id.
 
@@ -113,7 +113,7 @@ Updates single meal by id.
 All keys are required except *description*
 
 ## Delete meal
-### DELETE /user/:id/meal/:ids
+### DELETE /user/:id/meals/:ids
 
 Deletes single meal by ids from user id.
 
