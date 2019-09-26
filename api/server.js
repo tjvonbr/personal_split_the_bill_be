@@ -8,7 +8,7 @@ const mealsRouter = require('../meals/mealsRouter')
 
 const server = express();
 server.use(cors({
-    origin: 'https://splitthebillbw.netlify.com'
+    origin: '*' 
 }));
 
 server.use(express.json());
