@@ -7,9 +7,7 @@ const userRouter = require('../users/usersRouter')
 const mealsRouter = require('../meals/mealsRouter')
 
 const server = express();
-server.use(cors({
-    origin: '*' 
-}));
+server.use(cors());
 
 server.use(express.json());
 

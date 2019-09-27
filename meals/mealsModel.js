@@ -13,7 +13,10 @@ module.exports = {
     update,
     remove,
     getMeal,
-    getMealById
+    getMealById,
+    getUsersForMeal,
+    findById,
+    insertUserToMeal
 }
 
 function get() {
@@ -68,3 +71,22 @@ function getMealById(id) {
         .select('meals.*')
         .where('meals.id', id)
 }
+
+function getUsersForMeal(id) {
+    return db('user_meals as um')
+      .select(['um.meal_id', 'um.paid', 'u.firstName', 'u.lastName', 'u.username', 'm.restaurant', 'm.meal', 'm.total', 'm.comments'])
+      .join('users as u', 'u.id', 'um.user_id')
+      .join('meals as m', 'm.id', 'um.meal_id')
+      .where('um.meal_id', id)
+  };
+
+  // Alternate to getMealById for meals router
+  function findById(id) {
+      return db('meals')
+        .where({id})
+  };
+
+  function insertUserToMeal(users) {
+    return db('user_meals as um')
+        .insert(users)
+  };
