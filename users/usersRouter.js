@@ -99,7 +99,7 @@ router.get('/:id/meals', (req, res) => {
   db.getMeal(id)
     .then(meals => {
       if(meals.length === 0){
-        res.status(404).json({ message: 'No user here'})
+        res.status(404).json({ message: 'No meals exist for this user.'})
         } else {
           res.status(200).json(meals)
         }
