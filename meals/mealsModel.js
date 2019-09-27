@@ -76,6 +76,12 @@ function getUsersForMeal(id) {
       .where('um.meal_id', id)
   };
 
+  // Alternate to getMealById for meals router
+  function findById(id) {
+      return db('meals')
+        .where({id})
+  };
+
   function insertUserToMeal(users) {
     return db('user_meals as um')
         .insert(users)
