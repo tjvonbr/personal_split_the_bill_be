@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
   db.get()
     .then(users => {
       res.status(200).json(users);
+      console.log(users)
     })
     .catch(err => {
       console.log(err);
@@ -76,7 +77,7 @@ router.post('/login', (req, res) => {
   }
 })
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   db.get()
     .then(users => {
       res.status(200).json(users)
@@ -84,7 +85,7 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err))
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', auth, (req, res) => {
   const { id } = req.params
   db.getById(id)
   .then(user => {
@@ -105,7 +106,7 @@ router.get('/:id', (req, res) => {
 })
 
 //**** MEALS MODEL ABSTRACT THIS IF TIME*/
-router.get('/:id/meals', (req, res) => {
+router.get('/:id/meals', auth, (req, res) => {
   const { id } = req.params
   db.getMeal(id)
     .then(meals => {

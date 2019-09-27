@@ -2,7 +2,7 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
   return knex('user_meals')
-    .delete()
+    .truncate()
     .then(function () {
       // Inserts seed entries
       return knex('user_meals').insert([
