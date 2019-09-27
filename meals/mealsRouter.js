@@ -95,7 +95,7 @@ router.post('/:id/users', async (req, res) => {
         if (!meal) throw new Error;
 
         await users.forEach(async user => {
-            const newUser = await usersDb.getById(user).first()
+            const newUser = await usersDb.getMealById(user).first()
 
             await mealsDb.insertUserToMeal({ meal_id: meal.id, user_id: newUser.id })
         })

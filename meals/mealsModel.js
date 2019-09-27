@@ -62,15 +62,6 @@ function getMeal(id) {
         .select('meals.*')
         // .where('users.id', id)
 }
-function getMealById(id) {
-    return db('users')
-        .join('user_meals', 'users.id', 'user_meals.user_id')
-        // .select('user_meals.meal_id')
-        .where('users.id', id)
-        .join('meals', 'meals.id', "user_meals.meal_id")   
-        .select('meals.*')
-        .where('meals.id', id)
-}
 
 function getMealById(id) {
     return db('meals as m')
@@ -83,12 +74,6 @@ function getUsersForMeal(id) {
       .join('users as u', 'u.id', 'um.user_id')
       .join('meals as m', 'm.id', 'um.meal_id')
       .where('um.meal_id', id)
-  };
-
-  // Alternate to getMealById for meals router
-  function findById(id) {
-      return db('meals')
-        .where({id})
   };
 
   function insertUserToMeal(users) {
