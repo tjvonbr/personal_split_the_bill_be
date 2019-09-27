@@ -17,6 +17,17 @@ function generateToken (user) {
   return jwt.sign(payload, secret.jwtSecret, options)
 }
 
+router.get('/', (req, res) => {
+  db.get()
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'There was a problem fetching the users.' })
+    });
+});
+
 router.post('/register', (req, res) => {
   let { firstName, lastName, email, username, password } = req.body
   let user = req.body
