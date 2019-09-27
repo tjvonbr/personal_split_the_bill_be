@@ -72,6 +72,11 @@ function getMealById(id) {
         .where('meals.id', id)
 }
 
+function getMealById(id) {
+    return db('meals as m')
+        .where({id})
+};
+
 function getUsersForMeal(id) {
     return db('user_meals as um')
       .select(['um.meal_id', 'um.paid', 'u.firstName', 'u.lastName', 'u.username', 'm.restaurant', 'm.meal', 'm.total', 'm.comments'])
