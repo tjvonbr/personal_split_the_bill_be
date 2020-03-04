@@ -34,8 +34,9 @@ Split the Bill is a web application designed to make splitting the bill amongst 
 * SQL
 * JSON Web Token
 
-## Register a new user
-### POST api/use/register
+## API
+### Register a new user
+#### POST api/user/register
 https://split-the-bill-bw.herokuapp.com/api/user/register
 
 Expects object:
@@ -49,10 +50,21 @@ Expects object:
 }
 ```
 
-Returns "User Created"
+Returns object:
 
-## Log in a user
-###  POST api/user/login
+```
+{
+  "id": // auto-incrementing id
+  "firstName": "test",
+  "lastName": "test",
+  "email": "test@test.com",
+  "username": "test",
+  "password": // encrypted password
+}
+```
+
+### Login existing user
+####  POST api/user/login
 https://split-the-bill-bw.herokuapp.com/api/user/login
 
 Expects object:
@@ -64,17 +76,17 @@ Expects object:
 }
 ```
 
-Returns Object:
+Returns object:
 
 ```
 {
     "message": "Welcome 'username'",
-    "token": "token"
+    "token": // JSON web token
 }
 ```
 
-## Get ALL meals for user
-### GET /user/:id/meal
+### Get ALL meals for user
+#### GET /user/:id/meal
 
 Returns meals by user_id as an array.
 
@@ -97,8 +109,8 @@ Returns meals by user_id as an array.
 
 All keys are required except *description*
 
-## Get single meal for user
-### GET /user/:id/meals/:ids
+### Get single meal for user
+#### GET /user/:id/meals/:ids
 
 Returns single meal by user_id as an object.
 
@@ -113,8 +125,8 @@ Returns single meal by user_id as an object.
 
 All keys are required except *description*
 
-## Create new meal
-### POST /user/:id/meals/
+### Create new meal
+#### POST /user/:id/meals/
 
 Creates single meal by user_id as an object.
 
@@ -130,8 +142,8 @@ Creates single meal by user_id as an object.
 All keys are required except *description*
 
 
-## Change meal
-### PUT /user/:id/meals/
+### Change meal
+#### PUT /user/:id/meals/
 
 Updates single meal by id.
 
@@ -146,8 +158,8 @@ Updates single meal by id.
 
 All keys are required except *description*
 
-## Delete meal
-### DELETE /user/:id/meals/:ids
+### Delete meal
+#### DELETE /user/:id/meals/:ids
 
 Deletes single meal by ids from user id.
 
