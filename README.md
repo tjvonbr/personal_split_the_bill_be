@@ -35,9 +35,9 @@ Split the Bill is a web application designed to make splitting the bill amongst 
 * JSON Web Token
 
 ## API
+**Base URL:  https://split-the-bill-bw.herokuapp.com**
 ### Register a new user
-#### POST api/user/register
-https://split-the-bill-bw.herokuapp.com/api/user/register
+#### POST /api/user/register
 
 Expects object:
 ```
@@ -64,8 +64,7 @@ Returns object:
 ```
 
 ### Login existing user
-####  POST api/user/login
-https://split-the-bill-bw.herokuapp.com/api/user/login
+####  POST /api/user/login
 
 Expects object:
 
